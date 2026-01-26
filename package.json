@@ -1,0 +1,21 @@
+{
+  "name": "expense-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "common",
+    "web",
+    "mobile"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "dev": "npm run dev --workspaces --if-present",
+    "clean": "npm run clean --workspaces --if-present && rm -rf node_modules",
+    "type-check": "npm run type-check --workspaces --if-present",
+    "gen:types": "supabase gen types typescript --project-id $SUPABASE_PROJECT_ID --schema public > common/supabase/database.types.ts"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "prettier": "^3.1.1"
+  }
+}
