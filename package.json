@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "workspaces": [
-    "common",
+    "common/*",
     "web",
     "mobile"
   ],
   "scripts": {
+    "dev:web": "npm --workspace web run dev",
+    "dev:mobile": "npm --workspace mobile run dev",
     "build": "npm run build --workspaces --if-present",
     "dev": "npm run dev --workspaces --if-present",
     "clean": "npm run clean --workspaces --if-present && rm -rf node_modules",

@@ -1,16 +1,26 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { Database, Tables } from "./database.types";
 
-const supabaseUrl = process.env.SUPABASE_URL ?? process.env.EXPO_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.SUPABASE_ANON_KEY ?? process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error(
-    "Supabase URL and Anon Key are missing. Set SUPABASE_URL/SUPABASE_ANON_KEY or EXPO_PUBLIC_SUPABASE_URL/EXPO_PUBLIC_SUPABASE_ANON_KEY.",
-  );
+export interface SupabaseConfig {
+  url: string;
+  anonKey: string;
 }
 
-export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
+let supabase: SupabaseClient | null = null;
+
+export const initSupabase = (config: SupabaseConfig) => {
+  if (!supabase) {
+    supabase = createClient<Database>(config.url, config.anonKey);
+  }
+  return supabase;
+};
+
+export const getSupabase = () => {
+  if (!supabase) {
+    throw new Error("Call initSupabase first!");
+  }
+  return supabase;
+};
 
 export type Transaction = Tables<"transaction">;
 export type Category = Tables<"category">;
@@ -19,6 +29,7 @@ export type TransactionInsert = Database["public"]["Tables"]["transaction"]["Ins
 export type TransactionUpdate = Database["public"]["Tables"]["transaction"]["Update"];
 
 export const saveTransactionList = async (transactions: TransactionInsert[]) => {
+  const supabase = getSupabase();
   // BETTER APPROACH, BUT REQUIRES UNIQUE TRANSACTION CONSTRAINTS ON date, amount, referrent
   // const { error } = await supabase.from("transaction").upsert(transactions, {
   //   onConflict: "date, amount, referrent",
