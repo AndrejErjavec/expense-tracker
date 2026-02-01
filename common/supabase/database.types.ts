@@ -32,6 +32,35 @@ export type Database = {
         }
         Relationships: []
       }
+      referrent_category: {
+        Row: {
+          category_id: number | null
+          created_at: string
+          id: number
+          referrent: string | null
+        }
+        Insert: {
+          category_id?: number | null
+          created_at?: string
+          id?: number
+          referrent?: string | null
+        }
+        Update: {
+          category_id?: number | null
+          created_at?: string
+          id?: number
+          referrent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "referrent_category_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "category"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       transaction: {
         Row: {
           amount: number

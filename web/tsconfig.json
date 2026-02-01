@@ -1,18 +1,7 @@
 {
-  "extends": "../tsconfig.json",
-  "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "module": "commonjs",
-    "lib": ["ES2020"],
-    "jsx": "preserve",
-    "composite": true
-  },
+  "files": [],
   "references": [
-    {
-      "path": "../common"
-    }
-  ],
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
 }

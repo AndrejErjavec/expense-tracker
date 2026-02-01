@@ -7,13 +7,15 @@
     "build": "tsc -b",
     "dev": "tsc -b --watch",
     "clean": "rm -rf dist tsconfig.tsbuildinfo",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "gen:types": "supabase gen types typescript --project-id niwmufcsjcspkxiwghxd --schema public > supabase/database.types.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0",
     "dotenv": "^16.6.1"
   },
   "devDependencies": {
+    "supabase": "^2.74.5",
     "typescript": "^5.3.3"
   }
 }

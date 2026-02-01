@@ -62,3 +62,12 @@ export const saveTransactionList = async (transactions: TransactionInsert[]) => 
     throw error2;
   }
 };
+
+export const getTransactions = async (): Promise<Transaction[]> => {
+  const supabase = getSupabase();
+
+  const { data: transactions, error } = await supabase.from("transaction").select("*");
+
+  if (error) throw Error;
+  return transactions;
+};
