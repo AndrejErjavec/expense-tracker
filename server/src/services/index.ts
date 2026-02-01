@@ -17,6 +17,7 @@ const parseExpenseListCsv = (csvString: String) => {
       const date = formatToIso(row["DATUM KNJIŽENJA"]);
       const currency = row["VALUTA"];
       const referrant = row["NAMEN"].trim();
+      const account = row["POGODBA"];
       const newTransaction: TransactionInsert = {
         amount: amount,
         type: type,
@@ -26,6 +27,7 @@ const parseExpenseListCsv = (csvString: String) => {
         description: null,
         user_id: USER_ID,
         category_id: null,
+        account: account,
       };
       rows.push(newTransaction);
     };
