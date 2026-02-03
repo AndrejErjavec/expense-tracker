@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { getTransactions, type Transaction } from "@expense-tracker/common/supabase";
+import { getTransactions, type Transaction } from "@expense-tracker/api";
+import React, { useEffect, useState } from "react";
 
-function App() {
+export default function Dashboard() {
   const [transactions, setTransactions] = useState<Transaction[] | null>(null);
 
   useEffect(() => {
@@ -20,9 +20,7 @@ function App() {
   if (!transactions) {
     return (
       <div className="min-h-screen px-6 py-12">
-        <div className="mx-auto max-w-6xl text-sm font-medium tracking-wide text-stone-600">
-          Loading transactions…
-        </div>
+        <div className="mx-auto max-w-6xl text-sm font-medium tracking-wide text-stone-600">Loading transactions…</div>
       </div>
     );
   }
@@ -30,9 +28,7 @@ function App() {
   if (transactions.length === 0) {
     return (
       <div className="min-h-screen px-6 py-12">
-        <div className="mx-auto max-w-6xl text-sm font-medium tracking-wide text-stone-600">
-          No transactions
-        </div>
+        <div className="mx-auto max-w-6xl text-sm font-medium tracking-wide text-stone-600">No transactions</div>
       </div>
     );
   }
@@ -74,9 +70,7 @@ function App() {
                   <td className="px-4 py-4">{tr.description ?? "—"}</td>
                   <td className="px-4 py-4">{tr.referrent}</td>
                   <td className="px-4 py-4">{tr.type}</td>
-                  <td className="whitespace-nowrap px-4 py-4 font-semibold text-emerald-700">
-                    {tr.amount}
-                  </td>
+                  <td className="whitespace-nowrap px-4 py-4 font-semibold text-emerald-700">{tr.amount}</td>
                   <td className="whitespace-nowrap px-4 py-4">{tr.currency}</td>
                   <td className="whitespace-nowrap px-4 py-4">{tr.category_id ?? "—"}</td>
                 </tr>
@@ -88,5 +82,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

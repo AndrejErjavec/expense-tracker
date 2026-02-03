@@ -3,26 +3,24 @@
   "version": "1.0.0",
   "private": true,
   "workspaces": [
-    "common",
-    "server",
-    "mobile",
-    "web"
+    "packages/*",
+    "apps/*"
   ],
   "scripts": {
-    "dev:server": "npm --workspace server run dev",
-    "dev:web": "npm --workspace web run dev",
-    "dev:mobile": "npm --workspace mobile run dev",
+    "dev:server": "npm --workspace apps/server run dev",
+    "dev:web": "npm --workspace apps/web run dev",
+    "dev:mobile": "npm --workspace apps/mobile run dev",
     "build": "npm run build --workspaces --if-present",
     "dev": "npm run dev --workspaces --if-present",
     "clean": "npm run clean --workspaces --if-present && rm -rf node_modules",
     "type-check": "npm run type-check --workspaces --if-present",
-    "gen:types": "npm --workspace common run gen:types"
+    "gen:types": "npm --workspace packages run gen:types"
   },
   "dependencies": {
-    "@expense-tracker/common": "*"
+    "react-router-dom": "^6.30.3"
   },
   "devDependencies": {
-    "typescript": "^5.4.5",
-    "prettier": "^3.1.1"
+    "prettier": "^3.1.1",
+    "typescript": "^5.4.5"
   }
 }

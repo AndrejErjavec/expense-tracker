@@ -1,26 +1,5 @@
-import { createClient, SupabaseClient } from "@supabase/supabase-js";
-import { Database, Tables } from "./database.types";
-
-export interface SupabaseConfig {
-  url: string;
-  anonKey: string;
-}
-
-let supabase: SupabaseClient | null = null;
-
-export const initSupabase = (config: SupabaseConfig) => {
-  if (!supabase) {
-    supabase = createClient<Database>(config.url, config.anonKey);
-  }
-  return supabase;
-};
-
-export const getSupabase = () => {
-  if (!supabase) {
-    throw new Error("Call initSupabase first!");
-  }
-  return supabase;
-};
+import { SupabaseClient } from "@supabase/supabase-js";
+import { Database, Tables } from "./supabase.types";
 
 export type Transaction = Tables<"transaction">;
 export type Category = Tables<"category">;
@@ -28,11 +7,10 @@ export type Category = Tables<"category">;
 export type TransactionInsert = Database["public"]["Tables"]["transaction"]["Insert"];
 export type TransactionUpdate = Database["public"]["Tables"]["transaction"]["Update"];
 
-export const saveTransactionList = async (transactions: TransactionInsert[]) => {
-  const supabase = getSupabase();
-  // BETTER APPROACH, BUT REQUIRES UNIQUE TRANSACTION CONSTRAINTS ON date, amount, referrent
+export const saveTransactionList = async (supabase: SupabaseClient<Database>, transactions: TransactionInsert[]) => {
+  // BETTER APPROACH, BUT REQUIRES UNIQUE TRANSACTION CONSTRAINTS ON date, amount, referrent, account
   // const { error } = await supabase.from("transaction").upsert(transactions, {
-  //   onConflict: "date, amount, referrent",
+  //   onConflict: "date, amount, referrent, account",
   //   ignoreDuplicates: true,
   // });
 
@@ -46,7 +24,8 @@ export const saveTransactionList = async (transactions: TransactionInsert[]) => 
   const transactionsToInsert = transactions.filter(
     (tr) =>
       !existingTransactions?.some(
-        (etr) => etr.date === tr.date && etr.amount == tr.amount && etr.referrent == tr.referrent,
+        (etr) =>
+          etr.date === tr.date && etr.amount == tr.amount && etr.referrent == tr.referrent && etr.account == tr.account,
       ),
   );
 
@@ -63,9 +42,7 @@ export const saveTransactionList = async (transactions: TransactionInsert[]) => 
   }
 };
 
-export const getTransactions = async (): Promise<Transaction[]> => {
-  const supabase = getSupabase();
-
+export const getTransactions = async (supabase: SupabaseClient<Database>): Promise<Transaction[]> => {
   const { data: transactions, error } = await supabase.from("transaction").select("*");
 
   if (error) throw Error;
