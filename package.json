@@ -11,16 +11,15 @@
     "dev:web": "npm --workspace apps/web run dev",
     "dev:mobile": "npm --workspace apps/mobile run dev",
     "build": "npm run build --workspaces --if-present",
+    "build:api": "pnpm --filter @expense-tracker/api build",
     "dev": "npm run dev --workspaces --if-present",
     "clean": "npm run clean --workspaces --if-present && rm -rf node_modules",
     "type-check": "npm run type-check --workspaces --if-present",
     "gen:types": "npm --workspace packages run gen:types"
   },
-  "dependencies": {
-    "react-router-dom": "^6.30.3"
-  },
   "devDependencies": {
     "prettier": "^3.1.1",
     "typescript": "^5.4.5"
-  }
+  },
+  "packageManager": "pnpm@9.12.0"
 }

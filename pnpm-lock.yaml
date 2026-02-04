@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      react-router-dom:
-        specifier: ^6.30.3
-        version: 6.30.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
     devDependencies:
       prettier:
         specifier: ^3.1.1
@@ -182,6 +178,9 @@ importers:
       '@expense-tracker/api':
         specifier: workspace:*
         version: link:../../packages/api
+      '@supabase/supabase-js':
+        specifier: ^2.94.0
+        version: 2.94.0
       '@tailwindcss/vite':
         specifier: ^4.1.18
         version: 4.1.18(vite@7.3.1(@types/node@24.10.10)(jiti@2.6.1)(lightningcss@1.31.1)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))

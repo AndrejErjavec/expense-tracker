@@ -1,5 +1,6 @@
 import { getTransactions, type Transaction } from "@expense-tracker/api";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { supabase } from "../lib/supabase";
 
 export default function Dashboard() {
   const [transactions, setTransactions] = useState<Transaction[] | null>(null);
@@ -7,7 +8,7 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const t = await getTransactions();
+        const t = await getTransactions(supabase);
         setTransactions(t);
       } catch (e) {
         console.log("error fetching", e);

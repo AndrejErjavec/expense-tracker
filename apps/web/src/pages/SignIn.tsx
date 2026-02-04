@@ -20,7 +20,7 @@ export default function SignIn() {
             <input
               className="mt-2 w-full rounded-lg border border-stone-200 px-3 py-2 text-sm"
               type="email"
-              placeholder="you@example.com"
+              placeholder="mails@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />

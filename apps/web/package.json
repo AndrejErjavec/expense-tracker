@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@expense-tracker/api": "workspace:*",
+    "@supabase/supabase-js": "^2.94.0",
     "@tailwindcss/vite": "^4.1.18",
     "dotenv": "^16.6.1",
     "react": "^19.2.0",

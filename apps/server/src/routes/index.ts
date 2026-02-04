@@ -5,7 +5,7 @@ import multer, { FileFilterCallback } from "multer";
 import { processTransactions } from "../services";
 import iconv from "iconv-lite";
 
-const router = Router();
+const router: Router = Router();
 
 // const uploadDir = path.join(process.cwd(), "uploads");
 // fs.mkdirSync(uploadDir, { recursive: true });
