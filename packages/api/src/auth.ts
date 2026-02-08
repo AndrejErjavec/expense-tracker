@@ -2,10 +2,17 @@ import { SupabaseClient } from "@supabase/supabase-js";
 import { Database } from "./supabase.types";
 
 // Sign up
-export async function signUp(supabase: SupabaseClient<Database>, email: string, password: string) {
+export async function signUp(supabase: SupabaseClient<Database>, email: string, username: string, password: string) {
+  console.log("signup");
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
+    options: {
+      data: {
+        display_name: username,
+        email: email,
+      },
+    },
   });
 
   if (error) throw error;

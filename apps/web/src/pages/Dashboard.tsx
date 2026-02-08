@@ -1,4 +1,4 @@
-import { getTransactions, type Transaction } from "@expense-tracker/api";
+import { getTransactions, signOut, type Transaction } from "@expense-tracker/api";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 
@@ -17,6 +17,10 @@ export default function Dashboard() {
 
     fetchTransactions();
   }, []);
+
+  const handleSingOut = async () => {
+    await signOut(supabase);
+  };
 
   if (!transactions) {
     return (
@@ -44,6 +48,7 @@ export default function Dashboard() {
             A clean ledger view of your latest transactions, ready for review and export.
           </p>
         </header>
+        <button onClick={handleSingOut}>sign out</button>
         <div className="overflow-hidden rounded-2xl border border-stone-200 bg-[#fffaf1] shadow-[0_14px_30px_rgba(28,26,22,0.14)]">
           <table className="w-full border-collapse text-left text-sm">
             <thead className="bg-gradient-to-b from-[#fffefb] to-[#f6efe2]">

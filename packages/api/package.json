@@ -18,7 +18,7 @@
     "dev": "tsc -b --watch",
     "clean": "rm -rf dist tsconfig.tsbuildinfo",
     "type-check": "tsc --noEmit",
-    "gen:types": "supabase gen types typescript --project-id niwmufcsjcspkxiwghxd --schema public > types/supabase.types.ts"
+    "gen:types": "supabase gen types typescript --project-id niwmufcsjcspkxiwghxd --schema public > src/supabase.types.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0"

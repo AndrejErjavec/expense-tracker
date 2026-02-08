@@ -1,16 +1,21 @@
 import { signUp } from "@expense-tracker/api";
 import { useState } from "react";
 import { supabase } from "../lib/supabase";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
-  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+
   const handleSignUp = async () => {
-    const data = await signUp(supabase, email, password);
+    console.log("handle signup");
+    const data = await signUp(supabase, email, username, password);
+
     if (data) {
-      console.log(data);
+      navigate("/");
     }
   };
   return (
@@ -24,8 +29,8 @@ export default function SignUp() {
             <input
               className="mt-2 w-full rounded-lg border border-stone-200 px-3 py-2 text-sm"
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           <div>

@@ -1,12 +1,19 @@
+import { signIn } from "@expense-tracker/api";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { supabase } from "../lib/supabase";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSignUp = (e: MouseEvent) => {
-    e.preventDefault();
+  const navigate = useNavigate();
+
+  const handleSignIn = async () => {
+    const data = await signIn(supabase, email, password);
+    if (data) {
+      navigate("/");
+    }
   };
 
   return (
@@ -36,7 +43,7 @@ export default function SignIn() {
           </div>
           <button
             className="w-full rounded-lg bg-stone-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-stone-800"
-            onClick={() => handleSignUp}
+            onClick={handleSignIn}
           >
             Sign in
           </button>
